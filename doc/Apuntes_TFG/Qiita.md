@@ -1,0 +1,3 @@
+Qiita (_canonically pronounced cheetah_) is an entirely **open-source** microbial study management platform. It allows users to keep track of multiple studies with multiple ‘[[Omics (Bioinformatics)|omics]] data. Additionally, Qiita is capable of supporting multiple analytical pipelines through a 3rd-party plugin system, allowing the user to have a single entry point for all of their analyses.
+
+Qiita provides database and compute resources to the global community, alleviating the technical burdens that are typically limiting for researchers studying microbial ecology (e.g. familiarity with the command line or access to compute power).
