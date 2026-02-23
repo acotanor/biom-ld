@@ -1,7 +1,6 @@
 import biom
 from pathlib import Path
 import argparse
-import os
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extractor de metadatos de un archivo .biom")
