@@ -1,3 +1,14 @@
+
+ID:                 No Table ID
+Table-Type:         None
+Format-URL:         http://biom-format.org
+Format-Version:     (2, 1)
+Generated-By:       QIIME 1.8.0-dev, master@548e1de
+Creation-Date:      2014-11-10 11:24:04.154625
+Shape:              (19872, 992)
+Non-Zero-Values:    1946401
+Density:            9.87%
+
 Sample 755.SSFA.L1.D30.07.06.11.lane1.NoIndex.L001 metadata: None
 Sample 755.SSFA.L2.D5.24.08.11.lane1.NoIndex.L001 metadata: None
 Sample 755.SSFB.L1.D1.10.05.11.lane1.NoIndex.L001 metadata: None

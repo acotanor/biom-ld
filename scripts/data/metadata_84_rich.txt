@@ -1,3 +1,14 @@
+
+ID:                 No Table ID
+Table-Type:         None
+Format-URL:         http://biom-format.org
+Format-Version:     (2, 1)
+Generated-By:       QIIME 1.8.0-dev, master@548e1de
+Creation-Date:      2014-11-10 11:25:07.864656
+Shape:              (4470, 2)
+Non-Zero-Values:    4766
+Density:            53.31%
+
 Sample 829.Pd metadata: None
 Sample 829.JJ metadata: None
 Observation 4355812 taxonomy: k__Bacteria;p__Acidobacteria;c__Solibacteres;o__Solibacterales;f__;g__;s__

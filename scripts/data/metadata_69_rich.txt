@@ -1,3 +1,14 @@
+
+ID:                 No Table ID
+Table-Type:         None
+Format-URL:         http://biom-format.org
+Format-Version:     (2, 1)
+Generated-By:       QIIME 1.8.0-dev, master@548e1de
+Creation-Date:      2014-11-10 11:23:01.145130
+Shape:              (14461, 89)
+Non-Zero-Values:    136116
+Density:            10.58%
+
 Sample 638.FRX6.120710.2 metadata: None
 Sample 638.VAN20.120210.1 metadata: None
 Sample 638.RMK.ENR.25.1 metadata: None
