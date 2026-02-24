@@ -31,25 +31,38 @@ if __name__ == "__main__":
 
     if sobrescribir:
         with open(args.output, 'w') as f:
+            # Metadatos del archivo.
+            t = f"""
+ID:                 {table.table_id}
+Table-Type:         {table.type}
+Format-URL:         {biom.util.get_biom_format_url_string()}
+Format-Version:     {table.format_version}
+Generated-By:       {table.generated_by}
+Creation-Date:      {table.create_date}
+Shape:              {table.shape}
+Non-Zero-Values:    {table.nnz}
+Density:            {table.get_table_density():.2%}
+
+"""
+            if args.verbose:print(t)
+            f.write(t)
+
             # Metadatos de las muestras.
             for sample_id in table.ids(axis='sample'):
                 t = f"Sample {sample_id} metadata: {table.metadata(id=sample_id, axis='sample')}\n"
-                if args.verbose:
-                    print(t)
+                if args.verbose:print(t)
                 f.write(t)
 
             # Metadatos de las observaciones.
             if args.raw:
                 for observation_id in table.ids(axis='observation'):
                     t = f"Observation {observation_id} metadata: {table.metadata(id=observation_id, axis='observation')}\n"
-                    if args.verbose:
-                        print(t)
+                    if args.verbose:print(t)
                     f.write(t)
             elif args.rich:
                 for observation_id in table.ids(axis='observation'):
                     t = f"Observation {observation_id} taxonomy: {';'.join([t for t in table.metadata(id=observation_id, axis='observation').get('taxonomy') if t])}\n"
-                    if args.verbose:
-                        print(t)
+                    if args.verbose:print(t)
                     f.write(t)
             else:
                 print("Se debe elegir un modo de extracción de metadatos; --raw o --rich.")
