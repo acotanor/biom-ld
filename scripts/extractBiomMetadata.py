@@ -67,9 +67,8 @@ def extraer_metadatos(ruta_biom: str, rich: bool) -> Dict():
     return metadata
 
 def generar_informe(metadatos: Dict(), output: str, verbose: bool):
-    output_path = Path(output)
     sobrescribir = True
-
+    output_path = Path(output)
     if output_path.exists() and output_path.stat().st_size > 0:
         r = input("El archivo no está vacío. ¿Quieres sobrescribirlo? (s/n): ").strip().lower()
         sobrescribir = r == "s"
@@ -111,7 +110,7 @@ Density:            {metadatos["density"]}
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extractor de metadatos de un archivo .biom")
     parser.add_argument("-i", "--input", help="Ruta del archivo del que extraer los metadatos.", required=True)
-    parser.add_argument("-o", "--output", help="Ruta del archivo de texto que contendrá los metadatos del input.", required=True)
+    parser.add_argument("-o", "--output", help="Ruta del archivo de texto que contendrá los metadatos del input.", default="./data/default.txt")
     parser.add_argument("-v", "--verbose", help="Muestra los metadatos extraidos en la terminal.", action="store_true")
 
     obs_metadata = parser.add_mutually_exclusive_group(required=True)
@@ -120,6 +119,13 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
 
-    generar_informe(extraer_metadatos(args.input,args.rich),args.output,args.verbose)
+    output_path = Path(args.output)
+    input_path = Path(args.input)
+    if os.path.isfile(input_path):
+        generar_informe(extraer_metadatos(input_path,args.rich),output_path,args.verbose)
+    elif os.path.isdir(input_path):
+        for ruta in listar_biom(input_path):
+            print(f"Extrayendo los metadatos del archivo {ruta}")
+            generar_informe(extraer_metadatos(ruta,args.rich),ruta.split('.biom')[0] + '_metadata.txt',False)
 
     
