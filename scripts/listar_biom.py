@@ -2,7 +2,7 @@ import os
 import argparse
 from typing import List, Tuple
 
-def listar_biom(ruta_base: str) -> List[Tuple[str, float]]:
+def listar_biom(ruta_base: str, reverse: True) -> List[Tuple[str, float]]:
     """
     Lista archivos .biom, los ordena por tamaño de menor a mayor
     y devuelve su ruta junto con su peso.
@@ -17,7 +17,7 @@ def listar_biom(ruta_base: str) -> List[Tuple[str, float]]:
                 tamaño = os.path.getsize(ruta_completa)
                 archivos_con_peso.append((ruta_completa, tamaño))
 
-    archivos_con_peso.sort(key=lambda x: x[1], reverse=True)
+    archivos_con_peso.sort(key=lambda x: x[1], reverse=reverse)
     
     return archivos_con_peso
 
@@ -32,12 +32,12 @@ def formatear_tamaño(bytes: int) -> str:
     return f"{bytes:.2f} TB"
 
 def print_res(resultados, n):
-    print(f"PUESTO \t| {'RUTA':<53} | {'TAMAÑO'}")
+    print(f"PUESTO \t| {'RUTA':<50} | \t{'TAMAÑO'}")
     print("-" * 75)
     cont = 1
     if n == -1: n=len(resultados+1)
     for ruta, tam in resultados:
-        print(f"{cont}\t| {ruta:<50} | {formatear_tamaño(tam)}")
+        print(f"{cont}\t| {ruta:<50} | \t{formatear_tamaño(tam)}")
         cont += 1
         if cont == n+1: break
 
@@ -45,7 +45,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Script que lista los archivos .biom de un directorio y sus subcarpetas.")
     parser.add_argument("-i", "--input", type=str, help="Ruta del directorio a listar.", required=True)
     parser.add_argument("-n", type=int, help="La cantidad de archivos que mostrar, si es -1 se muestran todos.", default="-1")
+    parser.add_argument("-r", "--reverse", action="store_true", help="Si se ordena de mayor a menor o no.")
 
     args = parser.parse_args()
 
-    print_res(listar_biom(args.input),args.n)
+    print_res(listar_biom(args.input,args.reverse),args.n)
