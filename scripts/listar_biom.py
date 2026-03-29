@@ -50,4 +50,4 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    print_res(listar_biom(args.input,args.reverse,args.extension),args.n)
+    print_res(listar_archivos(args.input,args.reverse,args.extension),args.n)
