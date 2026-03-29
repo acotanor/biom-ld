@@ -53,16 +53,27 @@ def extraer_metadatos(ruta_biom: str, rich: bool) -> Dict():
     # Metadatos de las muestras.
     metadata["Samples"]=[]
     for sample_id in table.ids(axis='sample'):
-        metadata["Samples"].append({sample_id.item():table.metadata(id=sample_id, axis='sample')})
+        if type(sample_id) == np.str_: sample_id = sample_id.item()
+        metadata["Samples"].append({sample_id:table.metadata(id=sample_id, axis='sample')})
 
     # Metadatos de las observaciones.
     metadata["Observations"]=[]
     if rich:
         for observation_id in table.ids(axis='observation'):
-            metadata["Observations"].append({observation_id:';'.join([t for t in table.metadata(id=observation_id, axis='observation').get('taxonomy') if t])})
+            aux = table.metadata(id=observation_id, axis='observation')     # Variable para evitar errores NoneType cuando una observación no tiene metadatos.
+            if type(observation_id) == np.str_: observation_id = observation_id.item()
+            try:
+                metadata["Observations"].append({observation_id:';'.join([t for t in aux.get('taxonomy') if t])})
+            except Exception as e:
+                metadata["Observations"].append({observation_id:None})
     else:
         for observation_id in table.ids(axis='observation'):
-            metadata["Observations"].append({observation_id:table.metadata(id=observation_id, axis='observation')})
+            aux = table.metadata(id=observation_id, axis='observation')     # Variable para evitar errores NoneType cuando una observación no tiene metadatos.
+            if type(observation_id) == np.str_: observation_id = observation_id.item()
+            try:
+                metadata["Observations"].append({observation_id:aux})
+            except Exception as e:
+                metadata["Observations"].append({observation_id:None})
 
     return metadata
 
@@ -122,10 +133,12 @@ if __name__ == "__main__":
     output_path = Path(args.output)
     input_path = Path(args.input)
     if os.path.isfile(input_path):
+        print(f"Extrayendo los metadatos del archivo {ruta}")
         generar_informe(extraer_metadatos(input_path,args.rich),output_path,args.verbose)
     elif os.path.isdir(input_path):
         for ruta in listar_biom(input_path):
             print(f"Extrayendo los metadatos del archivo {ruta}")
-            generar_informe(extraer_metadatos(ruta,args.rich),ruta.split('.biom')[0] + '_metadata.txt',False)
+            if args.rich: generar_informe(extraer_metadatos(ruta,args.rich),ruta.split('.biom')[0] + '_metadata_rich.txt',False)
+            else: generar_informe(extraer_metadatos(ruta,args.rich),ruta.split('.biom')[0] + '_metadata_raw.txt',False)
 
     
