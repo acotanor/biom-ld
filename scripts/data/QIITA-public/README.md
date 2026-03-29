@@ -8,7 +8,7 @@ La carpeta original contiene tres subcarpetas; BIOM (archivos .biom sin procesar
 
 El problema reside en que BIOM contenía originalmente 18624 carpetas con un archivo .biom, entonces hacer operaciones sobre la carpeta consume mucho tiempo. Por suerte los identificadores están repartidos de forma más o menos uniforme, hay aproximadamente 11000 que empiezan por 1 y unos 3000 que empiezan por dos, pero el resto de digitos son bastante parejos. Y he aprovechado esto para poder separar las carpetas en subcarpetas y así trabajar en lotes manejables.
 
-Ahora BIOM contiene 10 carpetas; 1...,2...,...,9... Y cada una de estas carpetas otras 10; 10...,11...,...,19...
+Ahora BIOM contiene 9 carpetas; 1...,2...,...,9... Y cada una de estas carpetas otras 10; 10...,11...,...,19...
 
 El resto de archivos respetan la disposición original.
 
