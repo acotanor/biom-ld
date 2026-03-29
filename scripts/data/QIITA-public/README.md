@@ -14,4 +14,6 @@ El resto de archivos respetan la disposición original.
 
 ## Comando de rsync para sincronizar las carpetas:
 Ejecutado desde la raiz del repo:
+```bash
 rsync -avm --include='*/' --include='*.txt' --exclude='*.biom' /mnt/datos/TFG/QIITA-public/BIOM/1... ./scripts/data/QIITA-public/BIOM
+```
