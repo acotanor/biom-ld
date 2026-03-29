@@ -2,7 +2,7 @@ import os
 import argparse
 from typing import List, Tuple
 
-def listar_biom(ruta_base: str, reverse: True) -> List[Tuple[str, float]]:
+def listar_archivos(ruta_base: str, reverse: True, extension: str) -> List[Tuple[str, float]]:
     """
     Lista archivos .biom, los ordena por tamaño de menor a mayor
     y devuelve su ruta junto con su peso.
@@ -11,7 +11,7 @@ def listar_biom(ruta_base: str, reverse: True) -> List[Tuple[str, float]]:
 
     for raiz, _, archivos in os.walk(ruta_base):
         for archivo in archivos:
-            if archivo.lower().endswith('.biom'):
+            if archivo.lower().endswith(extension):
                 ruta_completa = os.path.join(raiz, archivo)
                 # Obtener el tamaño en bytes
                 tamaño = os.path.getsize(ruta_completa)
@@ -46,7 +46,8 @@ if __name__ == "__main__":
     parser.add_argument("-i", "--input", type=str, help="Ruta del directorio a listar.", required=True)
     parser.add_argument("-n", type=int, help="La cantidad de archivos que mostrar, si es -1 se muestran todos.", default="-1")
     parser.add_argument("-r", "--reverse", action="store_true", help="Si se ordena de mayor a menor o no.")
+    parser.add_argument("-e", "--extension", type=str, help="Extensión de los archivos a listar, .biom por defecto.", default=".biom")
 
     args = parser.parse_args()
 
-    print_res(listar_biom(args.input,args.reverse),args.n)
+    print_res(listar_biom(args.input,args.reverse,args.extension),args.n)
